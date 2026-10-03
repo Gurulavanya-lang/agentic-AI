@@ -1,4 +1,4 @@
-def goal_based_agent(temp, goal=72, max_iter=10):
+def result_agent(temp, goal=72, max_iter=10):
     state = {
         "done": False,
         "steps": 0
@@ -7,7 +7,7 @@ def goal_based_agent(temp, goal=72, max_iter=10):
     for i in range(max_iter):
         if temp == goal:
             state["done"] = True
-            return state
+            return "success", state
 
         if temp > goal:
             temp -= 1
@@ -16,9 +16,13 @@ def goal_based_agent(temp, goal=72, max_iter=10):
 
         state["steps"] += 1
 
-    return state
+    if temp == goal:
+        state["done"] = True
+        return "success", state
+    else:
+        return "failure", state
 
 
-result = goal_based_agent(90)
+result = result_agent(90)
 
 print("Result:", result)
